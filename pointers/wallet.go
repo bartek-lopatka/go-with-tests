@@ -1,13 +1,19 @@
 package pointers
 
-type Wallet struct {
-	balance int
+type Stringer interface {
+	String() string
 }
 
-func (w *Wallet) Balance() int {
+type Bitcoin int
+
+type Wallet struct {
+	balance Bitcoin
+}
+
+func (w *Wallet) Balance() Bitcoin {
 	return w.balance
 }
 
-func (w *Wallet) Deposit(amount int) {
+func (w *Wallet) Deposit(amount Bitcoin) {
 	w.balance += amount
 }
