@@ -8,31 +8,36 @@ func TestPerimeter(t *testing.T) {
 	want := 40.0
 
 	if got != want {
-		t.Errorf("got %.2f, want %.2f", got, want)
+		t.Errorf("got %.2f, expectedArea %.2f", got, want)
 	}
 }
 
 func TestArea(t *testing.T) {
 	areaTests := []struct {
-		shape Shape
-		want  float64
+		name         string
+		shape        Shape
+		expectedArea float64
 	}{
-		{Rectangle{10.0, 4.0}, 40.0},
-		{Circle{10.0}, 314.1592653589793},
-		{Triangle{5.0, 8.0}, 20.0},
+		//I should also name fields in the test cases, but my IDE is clever and shows me what they are
+		//So in the name of laziness, I'll leave it as it is
+		{"Rectangle", Rectangle{10.0, 4.0}, 40.0},
+		{"Circle", Circle{10.0}, 314.1592653589793},
+		{"Triangle", Triangle{5.0, 8.0}, 20.0},
 	}
 
 	for _, tt := range areaTests {
-		got := tt.shape.Area()
-		if got != tt.want {
-			t.Errorf("got %g, want %g", got, tt.want)
-		}
+		t.Run(tt.name, func(t *testing.T) {
+			got := tt.shape.Area()
+			if got != tt.expectedArea {
+				t.Errorf("%#v got %g, expectedArea %g", tt.shape, got, tt.expectedArea)
+			}
+		})
 	}
-	//checkArea := func(tb testing.TB, shape Shape, want float64) {
+	//checkArea := func(tb testing.TB, shape Shape, expectedArea float64) {
 	//	t.Helper()
 	//	got := shape.Area()
-	//	if got != want {
-	//		t.Errorf("got %g, want %g", got, want)
+	//	if got != expectedArea {
+	//		t.Errorf("got %g, expectedArea %g", got, expectedArea)
 	//	}
 	//}
 	//t.Run("rectangles", func(t *testing.T) {
