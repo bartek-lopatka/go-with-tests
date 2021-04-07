@@ -18,10 +18,19 @@ func TestSearch(t *testing.T) {
 	})
 }
 
+func TestAdd(t *testing.T) {
+	dictionary := Dictionary{}
+	dictionary.Add("mykey", "myvalue")
+
+	got, _ := dictionary.Search("mykey")
+	want := "myvalue"
+	assertStrings(t, got, want)
+}
+
 func assertStrings(t testing.TB, got string, want string) {
 	t.Helper()
 	if got != want {
-		t.Errorf("got %q want %q with given %q", got, want, "test")
+		t.Errorf("got %q want %q", got, want)
 	}
 }
 
